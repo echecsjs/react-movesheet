@@ -1,6 +1,6 @@
 {
   "name": "@echecs/react-movesheet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "license": "MIT",
   "description": "React move notation panel — displays chess game moves with click navigation, variations, comments, NAGs, evaluation, and keyboard navigation.",
