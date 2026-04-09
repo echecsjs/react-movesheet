@@ -2,6 +2,8 @@
 
 Coding-agent reference for the `react-movesheet` package.
 
+**Backlog:** tracked in [GitHub Issues](https://github.com/mormubis/react-movesheet/issues).
+
 ## Overview
 
 `@echecs/react-movesheet` is a React move notation panel that displays chess
