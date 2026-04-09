@@ -1,6 +1,6 @@
 {
   "name": "@echecs/react-movesheet",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "license": "MIT",
   "description": "React move notation panel — displays chess game moves with click navigation, variations, comments, NAGs, evaluation, and keyboard navigation.",
@@ -16,6 +16,16 @@
   "publishConfig": {
     "access": "public"
   },
+  "keywords": [
+    "chess",
+    "component",
+    "moves",
+    "movesheet",
+    "notation",
+    "pgn",
+    "react",
+    "typescript"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {
@@ -56,7 +66,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import-x": "^4.16.2",
-    "eslint-plugin-unicorn": "^63.0.0",
+    "eslint-plugin-unicorn": "^64.0.0",
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
     "lint-staged": "^16.4.0",
@@ -65,7 +75,7 @@
     "react-dom": "^18.3.1",
     "storybook": "^10.3.4",
     "tsdown": "^0.21.4",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "typescript-eslint": "^8.57.0",
     "vite": "^8.0.3",
     "vitest": "^4.1.0"
