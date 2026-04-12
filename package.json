@@ -7,11 +7,11 @@
   "author": "Adrian de la Rosa <adrian@delarosab.me>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mormubis/react-movesheet.git"
+    "url": "https://github.com/echecsjs/react-movesheet.git"
   },
-  "homepage": "https://github.com/mormubis/react-movesheet#readme",
+  "homepage": "https://github.com/echecsjs/react-movesheet#readme",
   "bugs": {
-    "url": "https://github.com/mormubis/react-movesheet/issues"
+    "url": "https://github.com/echecsjs/react-movesheet/issues"
   },
   "publishConfig": {
     "access": "public"

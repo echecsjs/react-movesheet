@@ -3,7 +3,7 @@
 Coding-agent reference for the `react-movesheet` package.
 
 **Backlog:** tracked in
-[GitHub Issues](https://github.com/mormubis/react-movesheet/issues).
+[GitHub Issues](https://github.com/echecsjs/react-movesheet/issues).
 
 ## Project Overview
 
