@@ -125,6 +125,18 @@ const node = findNode(root, 'm3w');
 const path = pathToNode(root, 'm3w'); // [root, m1w, m1b, m2w, m2b, m3w]
 ```
 
+## Exported types
+
+| Type             | Description                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| `Eval`           | `{ type: 'cp' \| 'mate'; value: number; depth?: number }` — engine evaluation                            |
+| `MoveNode`       | Tree node representing a single move, with id, san, side, children, and optional eval/comment/nags/clock |
+| `MoveSheetProps` | All props accepted by `<MoveSheet />`                                                                    |
+
+```tsx
+import type { Eval, MoveNode, MoveSheetProps } from '@echecs/react-movesheet';
+```
+
 ## License
 
 MIT
