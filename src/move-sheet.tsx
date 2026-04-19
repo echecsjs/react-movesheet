@@ -401,9 +401,9 @@ function MoveSheet({
 
   const containerStyle: CSSProperties = {
     background: 'var(--movesheet-background, transparent)',
-    fontFamily: 'sans-serif',
-    fontSize: '14px',
-    lineHeight: '1.6',
+    fontFamily: 'var(--movesheet-font-family, inherit)',
+    fontSize: 'var(--movesheet-font-size, inherit)',
+    lineHeight: 'var(--movesheet-line-height, 1.6)',
     overflow: 'auto',
   };
 
