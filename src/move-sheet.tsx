@@ -160,7 +160,8 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
         key={`${node.id}-comment`}
         style={{
           color: 'var(--movesheet-comment, #666)',
-          fontStyle: 'italic',
+          display: 'var(--movesheet-comment-display, inline)',
+          fontStyle: 'var(--movesheet-comment-font-style, italic)',
         }}
       >
         {node.comment}
