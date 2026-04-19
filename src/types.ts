@@ -25,6 +25,7 @@ interface MoveSheetProperties {
   currentMoveId?: string;
   game: PGN;
   keyboard?: boolean;
+  onContextMenu?: (moveId: string) => void;
   onSelectMove?: (moveId: string) => void;
   showClock?: boolean;
   showComments?: boolean;

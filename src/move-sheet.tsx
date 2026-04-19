@@ -41,6 +41,7 @@ interface RenderNodeOptions {
   depth: number;
   isFirstInVariation: boolean;
   node: MoveNode;
+  onContextMenu: ((moveId: string) => void) | undefined;
   onSelectMove: ((moveId: string) => void) | undefined;
   showClock: boolean;
   showComments: boolean;
@@ -54,6 +55,7 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
     depth,
     isFirstInVariation,
     node,
+    onContextMenu,
     onSelectMove,
     showClock,
     showComments,
@@ -103,6 +105,14 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
       onClick={() => {
         onSelectMove?.(node.id);
       }}
+      onContextMenu={
+        onContextMenu
+          ? (event) => {
+              event.preventDefault();
+              onContextMenu(node.id);
+            }
+          : undefined
+      }
       style={moveStyle}
     >
       {node.san}
@@ -165,6 +175,7 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
     const variationElements = renderVariation({
       currentMoveId,
       depth: depth + 1,
+      onContextMenu,
       onSelectMove,
       showClock,
       showComments,
@@ -194,6 +205,7 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
 interface RenderVariationOptions {
   currentMoveId: string | undefined;
   depth: number;
+  onContextMenu: ((moveId: string) => void) | undefined;
   onSelectMove: ((moveId: string) => void) | undefined;
   showClock: boolean;
   showComments: boolean;
@@ -206,6 +218,7 @@ function renderVariation(options: RenderVariationOptions): ReactNode[] {
   const {
     currentMoveId,
     depth,
+    onContextMenu,
     onSelectMove,
     showClock,
     showComments,
@@ -224,6 +237,7 @@ function renderVariation(options: RenderVariationOptions): ReactNode[] {
       depth,
       isFirstInVariation: isFirst && current.side === 'black',
       node: current,
+      onContextMenu,
       onSelectMove,
       showClock,
       showComments,
@@ -256,6 +270,7 @@ function MoveSheet({
   currentMoveId,
   game,
   keyboard = true,
+  onContextMenu,
   onSelectMove,
   showClock = false,
   showComments = true,
@@ -409,6 +424,7 @@ function MoveSheet({
 
   const content = renderMainLine({
     currentMoveId,
+    onContextMenu,
     onSelectMove,
     root,
     showClock,

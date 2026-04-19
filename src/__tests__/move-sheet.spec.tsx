@@ -185,6 +185,30 @@ describe('MoveSheet click interactions', () => {
 
     expect(onSelectMove).toHaveBeenCalledWith('m1b');
   });
+
+  it('calls onContextMenu with correct move ID on right-click', () => {
+    const onContextMenu = vi.fn();
+    render(<MoveSheet game={simpleGame} onContextMenu={onContextMenu} />);
+
+    const moveSpan = document.querySelector('[data-move-id="m1w"]');
+    expect(moveSpan).toBeInTheDocument();
+    fireEvent.contextMenu(moveSpan!);
+
+    expect(onContextMenu).toHaveBeenCalledWith('m1w');
+  });
+
+  it('does not prevent default when onContextMenu is not provided', () => {
+    render(<MoveSheet game={simpleGame} />);
+
+    const moveSpan = document.querySelector('[data-move-id="m1w"]');
+    expect(moveSpan).toBeInTheDocument();
+
+    const event = new MouseEvent('contextmenu', { bubbles: true });
+    const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
+    moveSpan!.dispatchEvent(event);
+
+    expect(preventDefaultSpy).not.toHaveBeenCalled();
+  });
 });
 
 describe('MoveSheet keyboard navigation', () => {
