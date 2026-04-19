@@ -61,6 +61,7 @@ export function App() {
 | `game`           | `PGN`                      | required    | Parsed PGN game from `@echecs/pgn` |
 | `currentMoveId`  | `string`                   | `undefined` | ID of the currently active move    |
 | `onSelectMove`   | `(moveId: string) => void` | —           | Called when a move is clicked      |
+| `onContextMenu`  | `(moveId: string) => void` | —           | Called on right-click of a move    |
 | `showComments`   | `boolean`                  | `true`      | Show inline comment text           |
 | `showEvaluation` | `boolean`                  | `false`     | Show engine evaluation after moves |
 | `showNags`       | `boolean`                  | `true`      | Show NAG glyphs (!, ?, !!, ??)     |
@@ -101,16 +102,21 @@ All colours are controlled via CSS custom properties on a parent element:
 </div>
 ```
 
-| Variable                  | Default       | Description           |
-| ------------------------- | ------------- | --------------------- |
-| `--movesheet-background`  | `transparent` | Panel background      |
-| `--movesheet-active-move` | `#d4e8ff`     | Active move bg        |
-| `--movesheet-move-text`   | `inherit`     | Move SAN colour       |
-| `--movesheet-move-number` | `inherit`     | Move number colour    |
-| `--movesheet-comment`     | `#666`        | Comment text colour   |
-| `--movesheet-nag`         | `inherit`     | NAG glyph colour      |
-| `--movesheet-evaluation`  | `gray`        | Eval text colour      |
-| `--movesheet-variation`   | `#888`        | Variation text colour |
+| Variable                         | Default       | Description           |
+| -------------------------------- | ------------- | --------------------- |
+| `--movesheet-background`         | `transparent` | Panel background      |
+| `--movesheet-active-move`        | `#d4e8ff`     | Active move bg        |
+| `--movesheet-move-text`          | `inherit`     | Move SAN colour       |
+| `--movesheet-move-number`        | `inherit`     | Move number colour    |
+| `--movesheet-comment`            | `#666`        | Comment text colour   |
+| `--movesheet-comment-display`    | `inline`      | Comment display mode  |
+| `--movesheet-comment-font-style` | `italic`      | Comment font style    |
+| `--movesheet-font-family`        | `inherit`     | Panel font family     |
+| `--movesheet-font-size`          | `inherit`     | Panel font size       |
+| `--movesheet-line-height`        | `1.6`         | Panel line height     |
+| `--movesheet-nag`                | `inherit`     | NAG glyph colour      |
+| `--movesheet-evaluation`         | `gray`        | Eval text colour      |
+| `--movesheet-variation`          | `#888`        | Variation text colour |
 
 ## Utilities
 
