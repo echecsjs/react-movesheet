@@ -28,6 +28,7 @@ const meta: Meta<MoveSheetProperties> = {
       </div>
     ),
   ],
+  tags: ['autodocs'],
   title: 'MoveSheet',
 };
 
