@@ -1,0 +1,237 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@echecs/react-movesheet - v0.2.0</title><meta name="description" content="Documentation for @echecs/react-movesheet"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">@echecs/react-movesheet - v0.2.0</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>@echecs/react-movesheet - v0.2.0</h1></div><div class="tsd-panel tsd-typography"><h1 id="echecsreact-movesheet" class="tsd-anchor-link">@echecs/react-movesheet<a href="#echecsreact-movesheet" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>React move notation panel — displays chess game moves with click navigation,
+variations, comments, NAGs, evaluation, clock, and keyboard navigation. Inline
+styles with CSS variable theming, zero dependencies beyond React and
+<code>@echecs/pgn</code>.</p>
+<h2 id="installation" class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@echecs/react-movesheet</span><br/><span class="hl-3"># or</span><br/><span class="hl-0">pnpm</span><span class="hl-1"> </span><span class="hl-2">add</span><span class="hl-1"> </span><span class="hl-2">@echecs/react-movesheet</span>
+</code><button type="button">Copy</button></pre>
+
+<p>React &gt;=18 is a peer dependency.</p>
+<h2 id="quick-start" class="tsd-anchor-link">Quick start<a href="#quick-start" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<h3 id="minimal" class="tsd-anchor-link">Minimal<a href="#minimal" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="tsx"><span class="hl-4">import</span><span class="hl-1"> </span><span class="hl-5">parse</span><span class="hl-1"> </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@echecs/pgn&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">import</span><span class="hl-1"> { </span><span class="hl-5">MoveSheet</span><span class="hl-1"> } </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@echecs/react-movesheet&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-6">const</span><span class="hl-1"> [</span><span class="hl-7">game</span><span class="hl-1">] = </span><span class="hl-0">parse</span><span class="hl-1">(</span><span class="hl-2">&#39;1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 *&#39;</span><span class="hl-1">);</span><br/><br/><span class="hl-4">export</span><span class="hl-1"> </span><span class="hl-6">function</span><span class="hl-1"> </span><span class="hl-0">App</span><span class="hl-1">() {</span><br/><span class="hl-1">  </span><span class="hl-4">return</span><span class="hl-1"> </span><span class="hl-8">&lt;</span><span class="hl-9">MoveSheet</span><span class="hl-1"> </span><span class="hl-10">game</span><span class="hl-1">=</span><span class="hl-6">{</span><span class="hl-5">game</span><span class="hl-6">}</span><span class="hl-1"> </span><span class="hl-8">/&gt;</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="with-navigation" class="tsd-anchor-link">With navigation<a href="#with-navigation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="tsx"><span class="hl-4">import</span><span class="hl-1"> { </span><span class="hl-5">useState</span><span class="hl-1"> } </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;react&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">import</span><span class="hl-1"> </span><span class="hl-5">parse</span><span class="hl-1"> </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@echecs/pgn&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">import</span><span class="hl-1"> { </span><span class="hl-5">MoveSheet</span><span class="hl-1"> } </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@echecs/react-movesheet&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-6">const</span><span class="hl-1"> [</span><span class="hl-7">game</span><span class="hl-1">] = </span><span class="hl-0">parse</span><span class="hl-1">(</span><span class="hl-2">&#39;1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 *&#39;</span><span class="hl-1">);</span><br/><br/><span class="hl-4">export</span><span class="hl-1"> </span><span class="hl-6">function</span><span class="hl-1"> </span><span class="hl-0">App</span><span class="hl-1">() {</span><br/><span class="hl-1">  </span><span class="hl-6">const</span><span class="hl-1"> [</span><span class="hl-7">moveId</span><span class="hl-1">, </span><span class="hl-7">setMoveId</span><span class="hl-1">] = </span><span class="hl-0">useState</span><span class="hl-1">&lt;</span><span class="hl-9">string</span><span class="hl-1"> | </span><span class="hl-9">undefined</span><span class="hl-1">&gt;();</span><br/><br/><span class="hl-1">  </span><span class="hl-4">return</span><span class="hl-1"> (</span><br/><span class="hl-1">    </span><span class="hl-8">&lt;</span><span class="hl-9">MoveSheet</span><br/><span class="hl-1">      </span><span class="hl-10">currentMoveId</span><span class="hl-1">=</span><span class="hl-6">{</span><span class="hl-5">moveId</span><span class="hl-6">}</span><br/><span class="hl-1">      </span><span class="hl-10">game</span><span class="hl-1">=</span><span class="hl-6">{</span><span class="hl-5">game</span><span class="hl-6">}</span><br/><span class="hl-1">      </span><span class="hl-10">onSelectMove</span><span class="hl-1">=</span><span class="hl-6">{</span><span class="hl-5">setMoveId</span><span class="hl-6">}</span><br/><span class="hl-1">      </span><span class="hl-10">showComments</span><br/><span class="hl-1">      </span><span class="hl-10">showNags</span><br/><span class="hl-1">    </span><span class="hl-8">/&gt;</span><br/><span class="hl-1">  );</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<h2 id="props" class="tsd-anchor-link">Props<a href="#props" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<table>
+<thead>
+<tr>
+<th>Prop</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>game</code></td>
+<td><code>PGN</code></td>
+<td>required</td>
+<td>Parsed PGN game from <code>@echecs/pgn</code></td>
+</tr>
+<tr>
+<td><code>currentMoveId</code></td>
+<td><code>string</code></td>
+<td><code>undefined</code></td>
+<td>ID of the currently active move</td>
+</tr>
+<tr>
+<td><code>onSelectMove</code></td>
+<td><code>(moveId: string) =&gt; void</code></td>
+<td>—</td>
+<td>Called when a move is clicked</td>
+</tr>
+<tr>
+<td><code>onContextMenu</code></td>
+<td><code>(moveId: string) =&gt; void</code></td>
+<td>—</td>
+<td>Called on right-click of a move</td>
+</tr>
+<tr>
+<td><code>showComments</code></td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+<td>Show inline comment text</td>
+</tr>
+<tr>
+<td><code>showEvaluation</code></td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>Show engine evaluation after moves</td>
+</tr>
+<tr>
+<td><code>showNags</code></td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+<td>Show NAG glyphs (!, ?, !!, ??)</td>
+</tr>
+<tr>
+<td><code>showClock</code></td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>Show clock times</td>
+</tr>
+<tr>
+<td><code>keyboard</code></td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+<td>Enable arrow key navigation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="keyboard-navigation" class="tsd-anchor-link">Keyboard navigation<a href="#keyboard-navigation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>When <code>keyboard</code> is enabled and the panel is focused:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Right</td>
+<td>Next move (main continuation)</td>
+</tr>
+<tr>
+<td>Left</td>
+<td>Previous move</td>
+</tr>
+<tr>
+<td>Down</td>
+<td>Enter variation / cycle between variations</td>
+</tr>
+<tr>
+<td>Up</td>
+<td>Exit variation (jump to move before the branch)</td>
+</tr>
+<tr>
+<td>Home</td>
+<td>First move</td>
+</tr>
+<tr>
+<td>End</td>
+<td>Last move in current line</td>
+</tr>
+</tbody>
+</table>
+<h2 id="css-variable-theming" class="tsd-anchor-link">CSS variable theming<a href="#css-variable-theming" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>All colours are controlled via CSS custom properties on a parent element:</p>
+<pre><code class="tsx"><span class="hl-8">&lt;</span><span class="hl-11">div</span><br/><span class="hl-1">  </span><span class="hl-10">style</span><span class="hl-1">=</span><span class="hl-6">{</span><span class="hl-12">{</span><br/><span class="hl-12">    </span><span class="hl-2">&#39;--movesheet-background&#39;</span><span class="hl-5">:</span><span class="hl-12"> </span><span class="hl-2">&#39;#1a1a2e&#39;</span><span class="hl-12">,</span><br/><span class="hl-12">    </span><span class="hl-2">&#39;--movesheet-move-text&#39;</span><span class="hl-5">:</span><span class="hl-12"> </span><span class="hl-2">&#39;#e0e0e0&#39;</span><span class="hl-12">,</span><br/><span class="hl-12">    </span><span class="hl-2">&#39;--movesheet-active-move&#39;</span><span class="hl-5">:</span><span class="hl-12"> </span><span class="hl-2">&#39;#3a5a8c&#39;</span><span class="hl-12">,</span><br/><span class="hl-12">    </span><span class="hl-2">&#39;--movesheet-comment&#39;</span><span class="hl-5">:</span><span class="hl-12"> </span><span class="hl-2">&#39;#8899aa&#39;</span><span class="hl-12">,</span><br/><span class="hl-12">    </span><span class="hl-2">&#39;--movesheet-nag&#39;</span><span class="hl-5">:</span><span class="hl-12"> </span><span class="hl-2">&#39;#cc8844&#39;</span><span class="hl-12">,</span><br/><span class="hl-12">    </span><span class="hl-2">&#39;--movesheet-evaluation&#39;</span><span class="hl-5">:</span><span class="hl-12"> </span><span class="hl-2">&#39;#6699cc&#39;</span><span class="hl-12">,</span><br/><span class="hl-12">    </span><span class="hl-2">&#39;--movesheet-variation&#39;</span><span class="hl-5">:</span><span class="hl-12"> </span><span class="hl-2">&#39;#7788aa&#39;</span><span class="hl-12">,</span><br/><span class="hl-12">    </span><span class="hl-2">&#39;--movesheet-move-number&#39;</span><span class="hl-5">:</span><span class="hl-12"> </span><span class="hl-2">&#39;#556677&#39;</span><span class="hl-12">,</span><br/><span class="hl-12">  }</span><span class="hl-6">}</span><br/><span class="hl-8">&gt;</span><br/><span class="hl-1">  </span><span class="hl-8">&lt;</span><span class="hl-9">MoveSheet</span><span class="hl-1"> </span><span class="hl-10">game</span><span class="hl-1">=</span><span class="hl-6">{</span><span class="hl-5">game</span><span class="hl-6">}</span><span class="hl-1"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-8">&lt;/</span><span class="hl-11">div</span><span class="hl-8">&gt;</span>
+</code><button type="button">Copy</button></pre>
+
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--movesheet-background</code></td>
+<td><code>transparent</code></td>
+<td>Panel background</td>
+</tr>
+<tr>
+<td><code>--movesheet-active-move</code></td>
+<td><code>#d4e8ff</code></td>
+<td>Active move bg</td>
+</tr>
+<tr>
+<td><code>--movesheet-move-text</code></td>
+<td><code>inherit</code></td>
+<td>Move SAN colour</td>
+</tr>
+<tr>
+<td><code>--movesheet-move-number</code></td>
+<td><code>inherit</code></td>
+<td>Move number colour</td>
+</tr>
+<tr>
+<td><code>--movesheet-comment</code></td>
+<td><code>#666</code></td>
+<td>Comment text colour</td>
+</tr>
+<tr>
+<td><code>--movesheet-comment-display</code></td>
+<td><code>inline</code></td>
+<td>Comment display mode</td>
+</tr>
+<tr>
+<td><code>--movesheet-comment-font-style</code></td>
+<td><code>italic</code></td>
+<td>Comment font style</td>
+</tr>
+<tr>
+<td><code>--movesheet-font-family</code></td>
+<td><code>inherit</code></td>
+<td>Panel font family</td>
+</tr>
+<tr>
+<td><code>--movesheet-font-size</code></td>
+<td><code>inherit</code></td>
+<td>Panel font size</td>
+</tr>
+<tr>
+<td><code>--movesheet-line-height</code></td>
+<td><code>1.6</code></td>
+<td>Panel line height</td>
+</tr>
+<tr>
+<td><code>--movesheet-nag</code></td>
+<td><code>inherit</code></td>
+<td>NAG glyph colour</td>
+</tr>
+<tr>
+<td><code>--movesheet-evaluation</code></td>
+<td><code>gray</code></td>
+<td>Eval text colour</td>
+</tr>
+<tr>
+<td><code>--movesheet-variation</code></td>
+<td><code>#888</code></td>
+<td>Variation text colour</td>
+</tr>
+</tbody>
+</table>
+<h2 id="utilities" class="tsd-anchor-link">Utilities<a href="#utilities" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>The package also exports tree utilities for advanced use:</p>
+<pre><code class="tsx"><span class="hl-4">import</span><span class="hl-1"> { </span><span class="hl-5">buildTree</span><span class="hl-1">, </span><span class="hl-5">findNode</span><span class="hl-1">, </span><span class="hl-5">pathToNode</span><span class="hl-1"> } </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@echecs/react-movesheet&#39;</span><span class="hl-1">;</span><br/><span class="hl-4">import</span><span class="hl-1"> </span><span class="hl-4">type</span><span class="hl-1"> { </span><span class="hl-5">MoveNode</span><span class="hl-1"> } </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@echecs/react-movesheet&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-6">const</span><span class="hl-1"> </span><span class="hl-7">root</span><span class="hl-1"> = </span><span class="hl-0">buildTree</span><span class="hl-1">(</span><span class="hl-5">game</span><span class="hl-1">);</span><br/><span class="hl-6">const</span><span class="hl-1"> </span><span class="hl-7">node</span><span class="hl-1"> = </span><span class="hl-0">findNode</span><span class="hl-1">(</span><span class="hl-5">root</span><span class="hl-1">, </span><span class="hl-2">&#39;m3w&#39;</span><span class="hl-1">);</span><br/><span class="hl-6">const</span><span class="hl-1"> </span><span class="hl-7">path</span><span class="hl-1"> = </span><span class="hl-0">pathToNode</span><span class="hl-1">(</span><span class="hl-5">root</span><span class="hl-1">, </span><span class="hl-2">&#39;m3w&#39;</span><span class="hl-1">); </span><span class="hl-3">// [root, m1w, m1b, m2w, m2b, m3w]</span>
+</code><button type="button">Copy</button></pre>
+
+<h2 id="exported-types" class="tsd-anchor-link">Exported types<a href="#exported-types" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Eval</code></td>
+<td><code>{ type: 'cp' | 'mate'; value: number; depth?: number }</code> — engine evaluation</td>
+</tr>
+<tr>
+<td><code>MoveNode</code></td>
+<td>Tree node representing a single move, with id, san, side, children, and optional eval/comment/nags/clock</td>
+</tr>
+<tr>
+<td><code>MoveSheetProps</code></td>
+<td>All props accepted by <code>&lt;MoveSheet /&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="tsx"><span class="hl-4">import</span><span class="hl-1"> </span><span class="hl-4">type</span><span class="hl-1"> { </span><span class="hl-5">Eval</span><span class="hl-1">, </span><span class="hl-5">MoveNode</span><span class="hl-1">, </span><span class="hl-5">MoveSheetProps</span><span class="hl-1"> } </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@echecs/react-movesheet&#39;</span><span class="hl-1">;</span>
+</code><button type="button">Copy</button></pre>
+
+<h2 id="license" class="tsd-anchor-link">License<a href="#license" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>MIT</p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#echecsreact-movesheet"><span>@echecs/react-<wbr/>movesheet</span></a><ul><li><a href="#installation"><span>Installation</span></a></li><li><a href="#quick-start"><span>Quick start</span></a></li><li><ul><li><a href="#minimal"><span>Minimal</span></a></li><li><a href="#with-navigation"><span>With navigation</span></a></li></ul></li><li><a href="#props"><span>Props</span></a></li><li><a href="#keyboard-navigation"><span>Keyboard navigation</span></a></li><li><a href="#css-variable-theming"><span>CSS variable theming</span></a></li><li><a href="#utilities"><span>Utilities</span></a></li><li><a href="#exported-types"><span>Exported types</span></a></li><li><a href="#license"><span>License</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">@echecs/react-movesheet - v0.2.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
