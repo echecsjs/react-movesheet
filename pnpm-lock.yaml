@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@echecs/pgn':
-        specifier: ^3.10.1
-        version: 3.12.2
+        specifier: ^4.0.0
+        version: 4.0.0
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -241,8 +241,8 @@ packages:
     resolution: {integrity: sha512-QxULHAm7cNu72w97JUNCBFODFaXpbDg+dP8b/oWFAZ2MTRppA3U00Y2L1HqaS4J6yBqxwa/Y3nMBaxVKbB/NsA==}
     engines: {node: '>=20.19.0'}
 
-  '@echecs/pgn@3.12.2':
-    resolution: {integrity: sha512-AuRu1uMjocizipvdfkSmuJXBgrE5JkBNqP0Nhbl5dpyatChCnOgr6h1m+8w60dbeTXE/KnFz4Xh+QgZrnajaaw==}
+  '@echecs/pgn@4.0.0':
+    resolution: {integrity: sha512-m47TtW6Y5+VovhXct61X0p5o5WKFo7Evz37Sq4adSPf2DlgvbH8wiMPdp6j0JrwhcV/JCwXMqGVoHy5LrHFHbA==}
     engines: {node: '>=20'}
 
   '@emnapi/core@1.10.0':
@@ -2612,7 +2612,7 @@ snapshots:
 
   '@csstools/css-tokenizer@4.0.0': {}
 
-  '@echecs/pgn@3.12.2': {}
+  '@echecs/pgn@4.0.0': {}
 
   '@emnapi/core@1.10.0':
     dependencies:
