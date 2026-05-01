@@ -17,8 +17,12 @@ function makeMove(
 }
 
 const simpleGame = makePGN([
-  [1, makeMove({ piece: 'P', to: 'e4' }), makeMove({ piece: 'P', to: 'e5' })],
-  [2, makeMove({ piece: 'N', to: 'f3' }), undefined],
+  [
+    1,
+    makeMove({ piece: 'pawn', to: 'e4' }),
+    makeMove({ piece: 'pawn', to: 'e5' }),
+  ],
+  [2, makeMove({ piece: 'knight', to: 'f3' }), undefined],
 ]);
 
 describe('MoveSheet rendering', () => {
@@ -50,7 +54,11 @@ describe('MoveSheet rendering', () => {
 
   it('renders comments when showComments is true (default)', () => {
     const gameWithComment = makePGN([
-      [1, makeMove({ comment: 'Kings pawn', piece: 'P', to: 'e4' }), undefined],
+      [
+        1,
+        makeMove({ comment: 'Kings pawn', piece: 'pawn', to: 'e4' }),
+        undefined,
+      ],
     ]);
     render(<MoveSheet game={gameWithComment} />);
 
@@ -59,7 +67,11 @@ describe('MoveSheet rendering', () => {
 
   it('hides comments when showComments is false', () => {
     const gameWithComment = makePGN([
-      [1, makeMove({ comment: 'Kings pawn', piece: 'P', to: 'e4' }), undefined],
+      [
+        1,
+        makeMove({ comment: 'Kings pawn', piece: 'pawn', to: 'e4' }),
+        undefined,
+      ],
     ]);
     render(<MoveSheet game={gameWithComment} showComments={false} />);
 
@@ -68,7 +80,7 @@ describe('MoveSheet rendering', () => {
 
   it('renders NAG glyphs when showNags is true (default)', () => {
     const gameWithNag = makePGN([
-      [1, makeMove({ annotations: ['1'], piece: 'P', to: 'e4' }), undefined],
+      [1, makeMove({ annotations: ['1'], piece: 'pawn', to: 'e4' }), undefined],
     ]);
     render(<MoveSheet game={gameWithNag} />);
 
@@ -77,7 +89,7 @@ describe('MoveSheet rendering', () => {
 
   it('hides NAGs when showNags is false', () => {
     const gameWithNag = makePGN([
-      [1, makeMove({ annotations: ['1'], piece: 'P', to: 'e4' }), undefined],
+      [1, makeMove({ annotations: ['1'], piece: 'pawn', to: 'e4' }), undefined],
     ]);
     render(<MoveSheet game={gameWithNag} showNags={false} />);
 
@@ -88,7 +100,7 @@ describe('MoveSheet rendering', () => {
     const gameWithEval = makePGN([
       [
         1,
-        makeMove({ eval: { type: 'cp', value: 35 }, piece: 'P', to: 'e4' }),
+        makeMove({ eval: { type: 'cp', value: 35 }, piece: 'pawn', to: 'e4' }),
         undefined,
       ],
     ]);
@@ -101,7 +113,7 @@ describe('MoveSheet rendering', () => {
     const gameWithMate = makePGN([
       [
         1,
-        makeMove({ eval: { type: 'mate', value: 3 }, piece: 'P', to: 'e4' }),
+        makeMove({ eval: { type: 'mate', value: 3 }, piece: 'pawn', to: 'e4' }),
         undefined,
       ],
     ]);
@@ -114,7 +126,7 @@ describe('MoveSheet rendering', () => {
     const gameWithEval = makePGN([
       [
         1,
-        makeMove({ eval: { type: 'cp', value: 35 }, piece: 'P', to: 'e4' }),
+        makeMove({ eval: { type: 'cp', value: 35 }, piece: 'pawn', to: 'e4' }),
         undefined,
       ],
     ]);
@@ -125,7 +137,7 @@ describe('MoveSheet rendering', () => {
 
   it('renders clock when showClock is true', () => {
     const gameWithClock = makePGN([
-      [1, makeMove({ clock: 3661, piece: 'P', to: 'e4' }), undefined],
+      [1, makeMove({ clock: 3661, piece: 'pawn', to: 'e4' }), undefined],
     ]);
     render(<MoveSheet game={gameWithClock} showClock={true} />);
 
@@ -134,7 +146,7 @@ describe('MoveSheet rendering', () => {
 
   it('hides clock when showClock is false (default)', () => {
     const gameWithClock = makePGN([
-      [1, makeMove({ clock: 3661, piece: 'P', to: 'e4' }), undefined],
+      [1, makeMove({ clock: 3661, piece: 'pawn', to: 'e4' }), undefined],
     ]);
     render(<MoveSheet game={gameWithClock} />);
 
@@ -145,14 +157,14 @@ describe('MoveSheet rendering', () => {
 describe('MoveSheet variations', () => {
   it('renders variation moves', () => {
     const whiteMove2: Move = {
-      ...makeMove({ piece: 'N', to: 'f3' }),
-      variants: [[[2, makeMove({ piece: 'P', to: 'd4' }), undefined]]],
+      ...makeMove({ piece: 'knight', to: 'f3' }),
+      variants: [[[2, makeMove({ piece: 'pawn', to: 'd4' }), undefined]]],
     };
     const gameWithVariation = makePGN([
       [
         1,
-        makeMove({ piece: 'P', to: 'e4' }),
-        makeMove({ piece: 'P', to: 'e5' }),
+        makeMove({ piece: 'pawn', to: 'e4' }),
+        makeMove({ piece: 'pawn', to: 'e5' }),
       ],
       [2, whiteMove2, undefined],
     ]);
@@ -278,14 +290,14 @@ describe('MoveSheet keyboard navigation', () => {
 
   it('ArrowDown enters variation from parent move', () => {
     const whiteMove2: Move = {
-      ...makeMove({ piece: 'N', to: 'f3' }),
-      variants: [[[2, makeMove({ piece: 'P', to: 'd4' }), undefined]]],
+      ...makeMove({ piece: 'knight', to: 'f3' }),
+      variants: [[[2, makeMove({ piece: 'pawn', to: 'd4' }), undefined]]],
     };
     const gameWithVariation = makePGN([
       [
         1,
-        makeMove({ piece: 'P', to: 'e4' }),
-        makeMove({ piece: 'P', to: 'e5' }),
+        makeMove({ piece: 'pawn', to: 'e4' }),
+        makeMove({ piece: 'pawn', to: 'e5' }),
       ],
       [2, whiteMove2, undefined],
     ]);
@@ -308,14 +320,14 @@ describe('MoveSheet keyboard navigation', () => {
 
   it('ArrowDown cycles to next sibling variation', () => {
     const whiteMove2: Move = {
-      ...makeMove({ piece: 'N', to: 'f3' }),
-      variants: [[[2, makeMove({ piece: 'P', to: 'd4' }), undefined]]],
+      ...makeMove({ piece: 'knight', to: 'f3' }),
+      variants: [[[2, makeMove({ piece: 'pawn', to: 'd4' }), undefined]]],
     };
     const gameWithVariation = makePGN([
       [
         1,
-        makeMove({ piece: 'P', to: 'e4' }),
-        makeMove({ piece: 'P', to: 'e5' }),
+        makeMove({ piece: 'pawn', to: 'e4' }),
+        makeMove({ piece: 'pawn', to: 'e5' }),
       ],
       [2, whiteMove2, undefined],
     ]);
@@ -338,14 +350,14 @@ describe('MoveSheet keyboard navigation', () => {
 
   it('ArrowUp exits variation (jumps to move before the fork)', () => {
     const whiteMove2: Move = {
-      ...makeMove({ piece: 'N', to: 'f3' }),
-      variants: [[[2, makeMove({ piece: 'P', to: 'd4' }), undefined]]],
+      ...makeMove({ piece: 'knight', to: 'f3' }),
+      variants: [[[2, makeMove({ piece: 'pawn', to: 'd4' }), undefined]]],
     };
     const gameWithVariation = makePGN([
       [
         1,
-        makeMove({ piece: 'P', to: 'e4' }),
-        makeMove({ piece: 'P', to: 'e5' }),
+        makeMove({ piece: 'pawn', to: 'e4' }),
+        makeMove({ piece: 'pawn', to: 'e5' }),
       ],
       [2, whiteMove2, undefined],
     ]);

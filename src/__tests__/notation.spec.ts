@@ -4,66 +4,81 @@ import { nagToSymbol, toSAN } from '../notation.js';
 
 import type { Move } from '../types.js';
 
+function makeMove(
+  partial: Partial<Move> & { piece: Move['piece']; to: Move['to'] },
+): Move {
+  return partial as Move;
+}
+
 describe('toSAN', () => {
   it('renders a pawn move', () => {
-    const move: Move = { piece: 'P', to: 'e4' };
-    expect(toSAN(move)).toBe('e4');
+    expect(toSAN(makeMove({ piece: 'pawn', to: 'e4' }))).toBe('e4');
   });
 
   it('renders a piece move', () => {
-    const move: Move = { piece: 'N', to: 'f3' };
-    expect(toSAN(move)).toBe('Nf3');
+    expect(toSAN(makeMove({ piece: 'knight', to: 'f3' }))).toBe('Nf3');
   });
 
   it('renders a capture', () => {
-    const move: Move = { capture: true, from: 'e', piece: 'P', to: 'd5' };
-    expect(toSAN(move)).toBe('exd5');
+    expect(
+      toSAN(makeMove({ capture: true, from: 'e', piece: 'pawn', to: 'd5' })),
+    ).toBe('exd5');
   });
 
   it('renders a piece capture', () => {
-    const move: Move = { capture: true, piece: 'B', to: 'c6' };
-    expect(toSAN(move)).toBe('Bxc6');
+    expect(toSAN(makeMove({ capture: true, piece: 'bishop', to: 'c6' }))).toBe(
+      'Bxc6',
+    );
   });
 
   it('renders disambiguation', () => {
-    const move: Move = { from: 'a', piece: 'R', to: 'd1' };
-    expect(toSAN(move)).toBe('Rad1');
+    expect(toSAN(makeMove({ from: 'a', piece: 'rook', to: 'd1' }))).toBe(
+      'Rad1',
+    );
   });
 
   it('renders kingside castling', () => {
-    const move: Move = { castling: true, piece: 'K', to: 'g1' };
-    expect(toSAN(move)).toBe('O-O');
+    expect(toSAN(makeMove({ castling: true, piece: 'king', to: 'g1' }))).toBe(
+      'O-O',
+    );
   });
 
   it('renders queenside castling', () => {
-    const move: Move = { castling: true, piece: 'K', to: 'c1' };
-    expect(toSAN(move)).toBe('O-O-O');
+    expect(toSAN(makeMove({ castling: true, piece: 'king', to: 'c1' }))).toBe(
+      'O-O-O',
+    );
   });
 
   it('renders check', () => {
-    const move: Move = { check: true, piece: 'Q', to: 'h7' };
-    expect(toSAN(move)).toBe('Qh7+');
+    expect(toSAN(makeMove({ check: true, piece: 'queen', to: 'h7' }))).toBe(
+      'Qh7+',
+    );
   });
 
   it('renders checkmate', () => {
-    const move: Move = { checkmate: true, piece: 'Q', to: 'h7' };
-    expect(toSAN(move)).toBe('Qh7#');
+    expect(toSAN(makeMove({ checkmate: true, piece: 'queen', to: 'h7' }))).toBe(
+      'Qh7#',
+    );
   });
 
   it('renders promotion', () => {
-    const move: Move = { piece: 'P', promotion: 'Q', to: 'e8' };
-    expect(toSAN(move)).toBe('e8=Q');
+    expect(
+      toSAN(makeMove({ piece: 'pawn', promotion: 'queen', to: 'e8' })),
+    ).toBe('e8=Q');
   });
 
   it('renders capture + promotion', () => {
-    const move: Move = {
-      capture: true,
-      from: 'd',
-      piece: 'P',
-      promotion: 'Q',
-      to: 'e8',
-    };
-    expect(toSAN(move)).toBe('dxe8=Q');
+    expect(
+      toSAN(
+        makeMove({
+          capture: true,
+          from: 'd',
+          piece: 'pawn',
+          promotion: 'queen',
+          to: 'e8',
+        }),
+      ),
+    ).toBe('dxe8=Q');
   });
 });
 
