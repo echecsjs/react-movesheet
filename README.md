@@ -13,7 +13,7 @@ npm install @echecs/react-movesheet
 pnpm add @echecs/react-movesheet
 ```
 
-React >=18 is a peer dependency.
+`react` >=18 and `@echecs/pgn` >=4 are peer dependencies.
 
 ## Quick start
 

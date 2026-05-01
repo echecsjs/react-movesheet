@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.0 — 2026-05-01
+
+### Changed
+
+- `@echecs/pgn` moved from `dependencies` to `peerDependencies` at `^4.0.0`,
+  matching the pattern used by `@echecs/tiebreak` and `@echecs/san` (#37)
+- internal SAN rendering adapted for pgn v4's `PieceType` union
+
+### Added
+
+- storybook autodocs with prop descriptions (#11)
+
 ## 0.2.0 — 2026-04-19
 
 ### Added
