@@ -2,6 +2,14 @@ import type { Move } from './types.js';
 
 const KINGSIDE_SQUARES = new Set(['g1', 'g8']);
 
+const PIECE_LETTER: Record<string, string> = {
+  bishop: 'B',
+  king: 'K',
+  knight: 'N',
+  queen: 'Q',
+  rook: 'R',
+};
+
 const NAG_SYMBOLS: Record<string, string> = {
   '1': '!',
   '2': '?',
@@ -28,20 +36,20 @@ function nagToSymbol(nag: string): string {
 function toSAN(move: Move): string {
   if (move.castling) {
     return applyIndicators(
-      KINGSIDE_SQUARES.has(move.to) ? 'O-O' : 'O-O-O',
+      move.to !== undefined && KINGSIDE_SQUARES.has(move.to) ? 'O-O' : 'O-O-O',
       move,
     );
   }
 
   let san = '';
 
-  if (move.piece === 'P') {
+  if (move.piece === 'pawn') {
     san += move.capture ? (move.from ?? '') + 'x' + move.to : move.to;
     if (move.promotion !== undefined) {
-      san += '=' + move.promotion;
+      san += '=' + PIECE_LETTER[move.promotion];
     }
   } else {
-    san += move.piece;
+    san += PIECE_LETTER[move.piece] ?? move.piece;
     if (move.from !== undefined) {
       san += move.from;
     }

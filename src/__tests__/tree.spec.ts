@@ -31,13 +31,13 @@ describe('buildTree', () => {
     const game = makePGN([
       [
         1,
-        makeMove({ piece: 'P', to: 'e4' }),
-        makeMove({ piece: 'P', to: 'e5' }),
+        makeMove({ piece: 'pawn', to: 'e4' }),
+        makeMove({ piece: 'pawn', to: 'e5' }),
       ],
       [
         2,
-        makeMove({ piece: 'N', to: 'f3' }),
-        makeMove({ piece: 'N', to: 'c6' }),
+        makeMove({ piece: 'knight', to: 'f3' }),
+        makeMove({ piece: 'knight', to: 'c6' }),
       ],
     ]);
     const root = buildTree(game);
@@ -72,7 +72,9 @@ describe('buildTree', () => {
   });
 
   it('handles white-only move pair', () => {
-    const game = makePGN([[1, makeMove({ piece: 'P', to: 'e4' }), undefined]]);
+    const game = makePGN([
+      [1, makeMove({ piece: 'pawn', to: 'e4' }), undefined],
+    ]);
     const root = buildTree(game);
 
     expect(root.children).toHaveLength(1);
@@ -82,7 +84,9 @@ describe('buildTree', () => {
   });
 
   it('handles black-only first pair (white is undefined)', () => {
-    const game = makePGN([[1, undefined, makeMove({ piece: 'P', to: 'e5' })]]);
+    const game = makePGN([
+      [1, undefined, makeMove({ piece: 'pawn', to: 'e5' })],
+    ]);
     const root = buildTree(game);
 
     expect(root.children).toHaveLength(1);
@@ -96,7 +100,7 @@ describe('buildTree', () => {
     const move = makeMove({
       annotations: ['1', '6'],
       comment: 'Strong move',
-      piece: 'P',
+      piece: 'pawn',
       to: 'e4',
     });
     const game = makePGN([[1, move, undefined]]);
@@ -108,7 +112,7 @@ describe('buildTree', () => {
   });
 
   it('does not set nags when annotations is undefined', () => {
-    const move = makeMove({ piece: 'N', to: 'f3' });
+    const move = makeMove({ piece: 'knight', to: 'f3' });
     const game = makePGN([[1, move, undefined]]);
     const root = buildTree(game);
 
@@ -119,7 +123,7 @@ describe('buildTree', () => {
   it('transfers eval from Move to MoveNode', () => {
     const move = makeMove({
       eval: { depth: 20, type: 'cp', value: 35 },
-      piece: 'P',
+      piece: 'pawn',
       to: 'e4',
     });
     const game = makePGN([[1, move, undefined]]);
@@ -130,7 +134,7 @@ describe('buildTree', () => {
   });
 
   it('transfers clock from Move to MoveNode', () => {
-    const move = makeMove({ clock: 120, piece: 'P', to: 'e4' });
+    const move = makeMove({ clock: 120, piece: 'pawn', to: 'e4' });
     const game = makePGN([[1, move, undefined]]);
     const root = buildTree(game);
 
@@ -143,17 +147,17 @@ describe('buildTree', () => {
     // Nf3 has 2 variants: d4 and Bc4
     // All three are children of m1b
     const whiteMove2: Move = {
-      ...makeMove({ piece: 'N', to: 'f3' }),
+      ...makeMove({ piece: 'knight', to: 'f3' }),
       variants: [
-        [[2, makeMove({ piece: 'P', to: 'd4' }), undefined]],
-        [[2, makeMove({ piece: 'B', to: 'c4' }), undefined]],
+        [[2, makeMove({ piece: 'pawn', to: 'd4' }), undefined]],
+        [[2, makeMove({ piece: 'bishop', to: 'c4' }), undefined]],
       ],
     };
     const game = makePGN([
       [
         1,
-        makeMove({ piece: 'P', to: 'e4' }),
-        makeMove({ piece: 'P', to: 'e5' }),
+        makeMove({ piece: 'pawn', to: 'e4' }),
+        makeMove({ piece: 'pawn', to: 'e5' }),
       ],
       [2, whiteMove2, undefined],
     ]);
@@ -181,20 +185,20 @@ describe('buildTree', () => {
     // Nf3's first variation is d4, and d4 itself has a sub-variation c4.
     // c4 is an alternative to d4, so it attaches to d4's parent (m1b).
     // Final m1b.children: [Nf3 (m2w), d4 (m2w-v0-m2w), c4 (m2w-v0-m2w-v0-m2w)]
-    const innerVariant: Move = makeMove({ piece: 'P', to: 'c4' });
+    const innerVariant: Move = makeMove({ piece: 'pawn', to: 'c4' });
     const d4Move: Move = {
-      ...makeMove({ piece: 'P', to: 'd4' }),
+      ...makeMove({ piece: 'pawn', to: 'd4' }),
       variants: [[[2, innerVariant, undefined]]],
     };
     const nf3Move: Move = {
-      ...makeMove({ piece: 'N', to: 'f3' }),
+      ...makeMove({ piece: 'knight', to: 'f3' }),
       variants: [[[2, d4Move, undefined]]],
     };
     const game = makePGN([
       [
         1,
-        makeMove({ piece: 'P', to: 'e4' }),
-        makeMove({ piece: 'P', to: 'e5' }),
+        makeMove({ piece: 'pawn', to: 'e4' }),
+        makeMove({ piece: 'pawn', to: 'e5' }),
       ],
       [2, nf3Move, undefined],
     ]);
@@ -217,8 +221,8 @@ describe('buildTree', () => {
     const game = makePGN([
       [
         1,
-        makeMove({ piece: 'P', to: 'e4' }),
-        makeMove({ piece: 'P', to: 'e5' }),
+        makeMove({ piece: 'pawn', to: 'e4' }),
+        makeMove({ piece: 'pawn', to: 'e5' }),
       ],
     ]);
     const root = buildTree(game);
@@ -242,8 +246,8 @@ describe('findNode', () => {
     const game = makePGN([
       [
         1,
-        makeMove({ piece: 'P', to: 'e4' }),
-        makeMove({ piece: 'P', to: 'e5' }),
+        makeMove({ piece: 'pawn', to: 'e4' }),
+        makeMove({ piece: 'pawn', to: 'e5' }),
       ],
     ]);
     const root = buildTree(game);
@@ -256,14 +260,14 @@ describe('findNode', () => {
 
   it('finds a variation node', () => {
     const whiteMove2: Move = {
-      ...makeMove({ piece: 'N', to: 'f3' }),
-      variants: [[[2, makeMove({ piece: 'P', to: 'd4' }), undefined]]],
+      ...makeMove({ piece: 'knight', to: 'f3' }),
+      variants: [[[2, makeMove({ piece: 'pawn', to: 'd4' }), undefined]]],
     };
     const game = makePGN([
       [
         1,
-        makeMove({ piece: 'P', to: 'e4' }),
-        makeMove({ piece: 'P', to: 'e5' }),
+        makeMove({ piece: 'pawn', to: 'e4' }),
+        makeMove({ piece: 'pawn', to: 'e5' }),
       ],
       [2, whiteMove2, undefined],
     ]);
@@ -295,8 +299,8 @@ describe('pathToNode', () => {
     const game = makePGN([
       [
         1,
-        makeMove({ piece: 'P', to: 'e4' }),
-        makeMove({ piece: 'P', to: 'e5' }),
+        makeMove({ piece: 'pawn', to: 'e4' }),
+        makeMove({ piece: 'pawn', to: 'e5' }),
       ],
     ]);
     const root = buildTree(game);
@@ -309,14 +313,14 @@ describe('pathToNode', () => {
 
   it('returns full path for a variation node', () => {
     const whiteMove2: Move = {
-      ...makeMove({ piece: 'N', to: 'f3' }),
-      variants: [[[2, makeMove({ piece: 'P', to: 'd4' }), undefined]]],
+      ...makeMove({ piece: 'knight', to: 'f3' }),
+      variants: [[[2, makeMove({ piece: 'pawn', to: 'd4' }), undefined]]],
     };
     const game = makePGN([
       [
         1,
-        makeMove({ piece: 'P', to: 'e4' }),
-        makeMove({ piece: 'P', to: 'e5' }),
+        makeMove({ piece: 'pawn', to: 'e4' }),
+        makeMove({ piece: 'pawn', to: 'e5' }),
       ],
       [2, whiteMove2, undefined],
     ]);
