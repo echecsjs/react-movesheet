@@ -1,4 +1,19 @@
+# Output
 /dist/
+
+# Node
 /node_modules/
-/storybook-static/
+
+# Tests
 coverage/
+
+# Storybook
+/storybook-static/
+
+# Documentation
+docs/api/*
+!docs/api/.gitkeep
+
+# Agent planning artifacts
+.superpowers/
+docs/superpowers/
