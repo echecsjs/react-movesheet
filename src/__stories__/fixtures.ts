@@ -1,4 +1,4 @@
-import parse from '@echecs/pgn';
+import { parse } from '@echecs/pgn';
 
 import type { PGN } from '@echecs/pgn';
 
