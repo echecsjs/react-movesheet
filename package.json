@@ -45,11 +45,11 @@
     "node": ">=22"
   },
   "peerDependencies": {
-    "@echecs/pgn": "^4.0.0",
+    "@echecs/pgn": "^5.0.0",
     "react": ">=18"
   },
   "devDependencies": {
-    "@echecs/pgn": "^4.0.0",
+    "@echecs/pgn": "^5.0.0",
     "@eslint/js": "^10.0.1",
     "@storybook/react-vite": "^10.3.4",
     "@testing-library/jest-dom": "^6.6.3",
