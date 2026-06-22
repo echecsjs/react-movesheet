@@ -57,10 +57,10 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
     node,
     onContextMenu,
     onSelectMove,
-    showClock,
-    showComments,
-    showEvaluation,
-    showNags,
+    showClock: isShowClock,
+    showComments: isShowComments,
+    showEvaluation: isShowEvaluation,
+    showNags: isShowNags,
   } = options;
 
   const elements: ReactNode[] = [];
@@ -116,7 +116,7 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
       style={moveStyle}
     >
       {node.san}
-      {showNags && node.nags !== undefined && node.nags.length > 0 && (
+      {isShowNags && node.nags !== undefined && node.nags.length > 0 && (
         <span style={{ color: 'var(--movesheet-nag, inherit)' }}>
           {node.nags.map((nag) => nagToSymbol(nag)).join('')}
         </span>
@@ -125,7 +125,7 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
   );
 
   // Evaluation
-  if (showEvaluation && node.eval !== undefined) {
+  if (isShowEvaluation && node.eval !== undefined) {
     elements.push(
       <span
         key={`${node.id}-eval`}
@@ -139,7 +139,7 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
   }
 
   // Clock
-  if (showClock && node.clock !== undefined) {
+  if (isShowClock && node.clock !== undefined) {
     elements.push(
       <span
         key={`${node.id}-clock`}
@@ -154,7 +154,7 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
   elements.push(' ');
 
   // Comment
-  if (showComments && node.comment !== undefined) {
+  if (isShowComments && node.comment !== undefined) {
     elements.push(
       <span
         key={`${node.id}-comment`}
@@ -178,10 +178,10 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
       depth: depth + 1,
       onContextMenu,
       onSelectMove,
-      showClock,
-      showComments,
-      showEvaluation,
-      showNags,
+      showClock: isShowClock,
+      showComments: isShowComments,
+      showEvaluation: isShowEvaluation,
+      showNags: isShowNags,
       startNode: variationStart,
     });
 
@@ -221,10 +221,10 @@ function renderVariation(options: RenderVariationOptions): ReactNode[] {
     depth,
     onContextMenu,
     onSelectMove,
-    showClock,
-    showComments,
-    showEvaluation,
-    showNags,
+    showClock: isShowClock,
+    showComments: isShowComments,
+    showEvaluation: isShowEvaluation,
+    showNags: isShowNags,
     startNode,
   } = options;
 
@@ -240,14 +240,14 @@ function renderVariation(options: RenderVariationOptions): ReactNode[] {
       node: current,
       onContextMenu,
       onSelectMove,
-      showClock,
-      showComments,
-      showEvaluation,
-      showNags,
+      showClock: isShowClock,
+      showComments: isShowComments,
+      showEvaluation: isShowEvaluation,
+      showNags: isShowNags,
     });
     elements.push(...nodeElements);
     isFirst = false;
-    current = current.children[0];
+    current = current.children.at(0);
   }
 
   return elements;
@@ -259,7 +259,7 @@ function renderMainLine(
   },
 ): ReactNode[] {
   const { root, ...rest } = options;
-  const firstChild = root.children[0];
+  const firstChild = root.children.at(0);
   if (firstChild === undefined) {
     return [];
   }
@@ -289,7 +289,7 @@ function MoveSheet({
     }
 
     const element = containerReference.current?.querySelector(
-      `[data-move-id="${currentMoveId}"]`,
+      `[data-move-id="${CSS.escape(currentMoveId)}"]`,
     );
 
     if (
@@ -313,7 +313,7 @@ function MoveSheet({
       switch (event.key) {
         case 'ArrowRight': {
           // Next move: first child of current node
-          const nextNode = currentNode?.children[0] ?? root.children[0];
+          const nextNode = currentNode?.children.at(0) ?? root.children.at(0);
           if (nextNode !== undefined) {
             event.preventDefault();
             onSelectMove(nextNode.id);
@@ -335,7 +335,7 @@ function MoveSheet({
 
         case 'Home': {
           // First move in tree
-          const firstMove = root.children[0];
+          const firstMove = root.children.at(0);
           if (firstMove !== undefined) {
             event.preventDefault();
             onSelectMove(firstMove.id);
@@ -345,10 +345,12 @@ function MoveSheet({
 
         case 'End': {
           // Last move in current line: follow first children to leaf
-          let last = currentNode ?? root.children[0];
+          let last = currentNode ?? root.children.at(0);
           if (last !== undefined) {
-            while (last.children[0] !== undefined) {
-              last = last.children[0];
+            let next = last.children.at(0);
+            while (next !== undefined) {
+              last = next;
+              next = last.children.at(0);
             }
             event.preventDefault();
             onSelectMove(last.id);
@@ -363,7 +365,7 @@ function MoveSheet({
           if (currentNode !== undefined) {
             if (currentNode.children.length > 1) {
               // Current node has variations — enter first one
-              const firstVariation = currentNode.children[1];
+              const firstVariation = currentNode.children.at(1);
               if (firstVariation !== undefined) {
                 event.preventDefault();
                 onSelectMove(firstVariation.id);
@@ -390,7 +392,7 @@ function MoveSheet({
           if (currentNode !== undefined) {
             let node: MoveNode | undefined = currentNode;
             while (node?.parent !== undefined) {
-              const firstSibling = node.parent.children[0];
+              const firstSibling = node.parent.children.at(0);
               if (firstSibling !== undefined && firstSibling.id !== node.id) {
                 // Found the branch point — jump to parent (the move
                 // before the fork), unless it's root
