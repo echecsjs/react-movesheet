@@ -57,10 +57,10 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
     node,
     onContextMenu,
     onSelectMove,
-    showClock,
-    showComments,
-    showEvaluation,
-    showNags,
+    showClock: isShowClock,
+    showComments: isShowComments,
+    showEvaluation: isShowEvaluation,
+    showNags: isShowNags,
   } = options;
 
   const elements: ReactNode[] = [];
@@ -116,7 +116,7 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
       style={moveStyle}
     >
       {node.san}
-      {showNags && node.nags !== undefined && node.nags.length > 0 && (
+      {isShowNags && node.nags !== undefined && node.nags.length > 0 && (
         <span style={{ color: 'var(--movesheet-nag, inherit)' }}>
           {node.nags.map((nag) => nagToSymbol(nag)).join('')}
         </span>
@@ -125,7 +125,7 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
   );
 
   // Evaluation
-  if (showEvaluation && node.eval !== undefined) {
+  if (isShowEvaluation && node.eval !== undefined) {
     elements.push(
       <span
         key={`${node.id}-eval`}
@@ -139,7 +139,7 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
   }
 
   // Clock
-  if (showClock && node.clock !== undefined) {
+  if (isShowClock && node.clock !== undefined) {
     elements.push(
       <span
         key={`${node.id}-clock`}
@@ -154,7 +154,7 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
   elements.push(' ');
 
   // Comment
-  if (showComments && node.comment !== undefined) {
+  if (isShowComments && node.comment !== undefined) {
     elements.push(
       <span
         key={`${node.id}-comment`}
@@ -178,10 +178,10 @@ function renderNode(options: RenderNodeOptions): ReactNode[] {
       depth: depth + 1,
       onContextMenu,
       onSelectMove,
-      showClock,
-      showComments,
-      showEvaluation,
-      showNags,
+      showClock: isShowClock,
+      showComments: isShowComments,
+      showEvaluation: isShowEvaluation,
+      showNags: isShowNags,
       startNode: variationStart,
     });
 
@@ -221,10 +221,10 @@ function renderVariation(options: RenderVariationOptions): ReactNode[] {
     depth,
     onContextMenu,
     onSelectMove,
-    showClock,
-    showComments,
-    showEvaluation,
-    showNags,
+    showClock: isShowClock,
+    showComments: isShowComments,
+    showEvaluation: isShowEvaluation,
+    showNags: isShowNags,
     startNode,
   } = options;
 
@@ -240,10 +240,10 @@ function renderVariation(options: RenderVariationOptions): ReactNode[] {
       node: current,
       onContextMenu,
       onSelectMove,
-      showClock,
-      showComments,
-      showEvaluation,
-      showNags,
+      showClock: isShowClock,
+      showComments: isShowComments,
+      showEvaluation: isShowEvaluation,
+      showNags: isShowNags,
     });
     elements.push(...nodeElements);
     isFirst = false;
@@ -289,7 +289,7 @@ function MoveSheet({
     }
 
     const element = containerReference.current?.querySelector(
-      `[data-move-id="${currentMoveId}"]`,
+      `[data-move-id="${CSS.escape(currentMoveId)}"]`,
     );
 
     if (
