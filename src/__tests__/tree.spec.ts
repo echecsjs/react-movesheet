@@ -44,25 +44,25 @@ describe('buildTree', () => {
 
     expect(root.children).toHaveLength(1);
 
-    const m1w = root.children.at(0)!;
+    const m1w = root.children[0]!;
     expect(m1w.id).toBe('m1w');
     expect(m1w.san).toBe('e4');
     expect(m1w.side).toBe('white');
     expect(m1w.moveNumber).toBe(1);
 
-    const m1b = m1w.children.at(0)!;
+    const m1b = m1w.children[0]!;
     expect(m1b.id).toBe('m1b');
     expect(m1b.san).toBe('e5');
     expect(m1b.side).toBe('black');
     expect(m1b.moveNumber).toBe(1);
 
-    const m2w = m1b.children.at(0)!;
+    const m2w = m1b.children[0]!;
     expect(m2w.id).toBe('m2w');
     expect(m2w.san).toBe('Nf3');
     expect(m2w.side).toBe('white');
     expect(m2w.moveNumber).toBe(2);
 
-    const m2b = m2w.children.at(0)!;
+    const m2b = m2w.children[0]!;
     expect(m2b.id).toBe('m2b');
     expect(m2b.san).toBe('Nc6');
     expect(m2b.side).toBe('black');
@@ -78,7 +78,7 @@ describe('buildTree', () => {
     const root = buildTree(game);
 
     expect(root.children).toHaveLength(1);
-    const m1w = root.children.at(0)!;
+    const m1w = root.children[0]!;
     expect(m1w.id).toBe('m1w');
     expect(m1w.children).toHaveLength(0);
   });
@@ -90,7 +90,7 @@ describe('buildTree', () => {
     const root = buildTree(game);
 
     expect(root.children).toHaveLength(1);
-    const m1b = root.children.at(0)!;
+    const m1b = root.children[0]!;
     expect(m1b.id).toBe('m1b');
     expect(m1b.san).toBe('e5');
     expect(m1b.side).toBe('black');
@@ -106,7 +106,7 @@ describe('buildTree', () => {
     const game = makePGN([[1, move, undefined]]);
     const root = buildTree(game);
 
-    const m1w = root.children.at(0)!;
+    const m1w = root.children[0]!;
     expect(m1w.comment).toBe('Strong move');
     expect(m1w.nags).toEqual(['1', '6']);
   });
@@ -116,7 +116,7 @@ describe('buildTree', () => {
     const game = makePGN([[1, move, undefined]]);
     const root = buildTree(game);
 
-    const m1w = root.children.at(0)!;
+    const m1w = root.children[0]!;
     expect(m1w.nags).toBeUndefined();
   });
 
@@ -129,7 +129,7 @@ describe('buildTree', () => {
     const game = makePGN([[1, move, undefined]]);
     const root = buildTree(game);
 
-    const m1w = root.children.at(0)!;
+    const m1w = root.children[0]!;
     expect(m1w.eval).toEqual({ depth: 20, type: 'cp', value: 35 });
   });
 
@@ -138,7 +138,7 @@ describe('buildTree', () => {
     const game = makePGN([[1, move, undefined]]);
     const root = buildTree(game);
 
-    const m1w = root.children.at(0)!;
+    const m1w = root.children[0]!;
     expect(m1w.clock).toBe(120);
   });
 
@@ -163,21 +163,21 @@ describe('buildTree', () => {
     ]);
     const root = buildTree(game);
 
-    const m1b = root.children.at(0)!.children.at(0)!;
+    const m1b = root.children[0]!.children[0]!;
     expect(m1b.id).toBe('m1b');
     expect(m1b.children).toHaveLength(3);
 
     // main line child
-    expect(m1b.children.at(0)!.id).toBe('m2w');
-    expect(m1b.children.at(0)!.san).toBe('Nf3');
+    expect(m1b.children[0]!.id).toBe('m2w');
+    expect(m1b.children[0]!.san).toBe('Nf3');
 
     // first variation: d4
-    expect(m1b.children.at(1)!.id).toBe('m2w-v0-m2w');
-    expect(m1b.children.at(1)!.san).toBe('d4');
+    expect(m1b.children[1]!.id).toBe('m2w-v0-m2w');
+    expect(m1b.children[1]!.san).toBe('d4');
 
     // second variation: Bc4
-    expect(m1b.children.at(2)!.id).toBe('m2w-v1-m2w');
-    expect(m1b.children.at(2)!.san).toBe('Bc4');
+    expect(m1b.children[2]!.id).toBe('m2w-v1-m2w');
+    expect(m1b.children[2]!.san).toBe('Bc4');
   });
 
   it('builds nested variations (variation inside a variation)', () => {
@@ -204,15 +204,15 @@ describe('buildTree', () => {
     ]);
     const root = buildTree(game);
 
-    const m1b = root.children.at(0)!.children.at(0)!;
+    const m1b = root.children[0]!.children[0]!;
     // m1b children: Nf3 (main), d4 (v0), c4 (nested v0 of d4)
     expect(m1b.children).toHaveLength(3);
 
-    const d4Node = m1b.children.at(1)!;
+    const d4Node = m1b.children[1]!;
     expect(d4Node.id).toBe('m2w-v0-m2w');
     expect(d4Node.san).toBe('d4');
 
-    const c4Node = m1b.children.at(2)!;
+    const c4Node = m1b.children[2]!;
     expect(c4Node.id).toBe('m2w-v0-m2w-v0-m2w');
     expect(c4Node.san).toBe('c4');
   });
@@ -227,8 +227,8 @@ describe('buildTree', () => {
     ]);
     const root = buildTree(game);
 
-    const m1w = root.children.at(0)!;
-    const m1b = m1w.children.at(0)!;
+    const m1w = root.children[0]!;
+    const m1b = m1w.children[0]!;
 
     expect(m1w.parent).toBe(root);
     expect(m1b.parent).toBe(m1w);
@@ -304,8 +304,8 @@ describe('pathToNode', () => {
       ],
     ]);
     const root = buildTree(game);
-    const m1w = root.children.at(0)!;
-    const m1b = m1w.children.at(0)!;
+    const m1w = root.children[0]!;
+    const m1b = m1w.children[0]!;
 
     const path = pathToNode(root, 'm1b');
     expect(path).toEqual([root, m1w, m1b]);
@@ -326,9 +326,9 @@ describe('pathToNode', () => {
     ]);
     const root = buildTree(game);
 
-    const m1w = root.children.at(0)!;
-    const m1b = m1w.children.at(0)!;
-    const variableNode = m1b.children.at(1)!; // d4 variation
+    const m1w = root.children[0]!;
+    const m1b = m1w.children[0]!;
+    const variableNode = m1b.children[1]!; // d4 variation
 
     const path = pathToNode(root, 'm2w-v0-m2w');
     expect(path).toEqual([root, m1w, m1b, variableNode]);

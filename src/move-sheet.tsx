@@ -247,7 +247,7 @@ function renderVariation(options: RenderVariationOptions): ReactNode[] {
     });
     elements.push(...nodeElements);
     isFirst = false;
-    current = current.children.at(0);
+    current = current.children[0];
   }
 
   return elements;
@@ -259,7 +259,7 @@ function renderMainLine(
   },
 ): ReactNode[] {
   const { root, ...rest } = options;
-  const firstChild = root.children.at(0);
+  const firstChild = root.children[0];
   if (firstChild === undefined) {
     return [];
   }
@@ -313,7 +313,7 @@ function MoveSheet({
       switch (event.key) {
         case 'ArrowRight': {
           // Next move: first child of current node
-          const nextNode = currentNode?.children.at(0) ?? root.children.at(0);
+          const nextNode = currentNode?.children[0] ?? root.children[0];
           if (nextNode !== undefined) {
             event.preventDefault();
             onSelectMove(nextNode.id);
@@ -335,7 +335,7 @@ function MoveSheet({
 
         case 'Home': {
           // First move in tree
-          const firstMove = root.children.at(0);
+          const firstMove = root.children[0];
           if (firstMove !== undefined) {
             event.preventDefault();
             onSelectMove(firstMove.id);
@@ -345,12 +345,10 @@ function MoveSheet({
 
         case 'End': {
           // Last move in current line: follow first children to leaf
-          let last = currentNode ?? root.children.at(0);
+          let last = currentNode ?? root.children[0];
           if (last !== undefined) {
-            let next = last.children.at(0);
-            while (next !== undefined) {
-              last = next;
-              next = last.children.at(0);
+            while (last.children[0] !== undefined) {
+              last = last.children[0];
             }
             event.preventDefault();
             onSelectMove(last.id);
@@ -365,7 +363,7 @@ function MoveSheet({
           if (currentNode !== undefined) {
             if (currentNode.children.length > 1) {
               // Current node has variations — enter first one
-              const firstVariation = currentNode.children.at(1);
+              const firstVariation = currentNode.children[1];
               if (firstVariation !== undefined) {
                 event.preventDefault();
                 onSelectMove(firstVariation.id);
@@ -392,7 +390,7 @@ function MoveSheet({
           if (currentNode !== undefined) {
             let node: MoveNode | undefined = currentNode;
             while (node?.parent !== undefined) {
-              const firstSibling = node.parent.children.at(0);
+              const firstSibling = node.parent.children[0];
               if (firstSibling !== undefined && firstSibling.id !== node.id) {
                 // Found the branch point — jump to parent (the move
                 // before the fork), unless it's root
