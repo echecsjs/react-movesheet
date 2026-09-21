@@ -23,10 +23,7 @@ function applyIndicators(san: string, move: Move): string {
   if (move.checkmate) {
     return san + '#';
   }
-  if (move.check) {
-    return san + '+';
-  }
-  return san;
+  return move.check ? san + '+' : san;
 }
 
 function nagToSymbol(nag: string): string {

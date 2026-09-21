@@ -29,11 +29,9 @@ function formatClock(seconds: number): string {
   const mm = String(minutes).padStart(2, '0');
   const ss = String(secs).padStart(2, '0');
 
-  if (hours > 0) {
-    return `${String(hours)}:${mm}:${ss}`;
-  }
-
-  return `${String(minutes)}:${ss}`;
+  return hours > 0
+    ? `${String(hours)}:${mm}:${ss}`
+    : `${String(minutes)}:${ss}`;
 }
 
 interface RenderNodeOptions {
@@ -260,11 +258,9 @@ function renderMainLine(
 ): ReactNode[] {
   const { root, ...rest } = options;
   const firstChild = root.children[0];
-  if (firstChild === undefined) {
-    return [];
-  }
-
-  return renderVariation({ ...rest, depth: 0, startNode: firstChild });
+  return firstChild === undefined
+    ? []
+    : renderVariation({ ...rest, depth: 0, startNode: firstChild });
 }
 
 function MoveSheet({

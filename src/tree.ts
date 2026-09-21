@@ -14,28 +14,16 @@ function createNode(
 ): MoveNode {
   const node: MoveNode = {
     children: [],
+    ...(move.clock !== undefined && { clock: move.clock }),
+    ...(move.comment !== undefined && { comment: move.comment }),
+    ...(move.eval !== undefined && { eval: move.eval as Eval }),
     id,
     moveNumber,
+    ...(move.annotations !== undefined && { nags: move.annotations }),
     parent,
     san: toSAN(move),
     side,
   };
-
-  if (move.clock !== undefined) {
-    node.clock = move.clock;
-  }
-
-  if (move.comment !== undefined) {
-    node.comment = move.comment;
-  }
-
-  if (move.eval !== undefined) {
-    node.eval = move.eval as Eval;
-  }
-
-  if (move.annotations !== undefined) {
-    node.nags = move.annotations;
-  }
 
   return node;
 }
@@ -65,20 +53,22 @@ function buildMoveList(
       current = node;
     }
 
-    if (blackMove !== undefined) {
-      const id = `${idPrefix}m${String(moveNumber)}b`;
-      const node = createNode(blackMove, moveNumber, 'black', id, current);
-      current.children.push(node);
-
-      if (blackMove.variants !== undefined) {
-        for (const [variableIndex, variation] of blackMove.variants.entries()) {
-          const variablePrefix = `${id}-v${String(variableIndex)}-`;
-          buildMoveList(variation, current, variablePrefix);
-        }
-      }
-
-      current = node;
+    if (blackMove === undefined) {
+      continue;
     }
+
+    const id = `${idPrefix}m${String(moveNumber)}b`;
+    const node = createNode(blackMove, moveNumber, 'black', id, current);
+    current.children.push(node);
+
+    if (blackMove.variants !== undefined) {
+      for (const [variableIndex, variation] of blackMove.variants.entries()) {
+        const variablePrefix = `${id}-v${String(variableIndex)}-`;
+        buildMoveList(variation, current, variablePrefix);
+      }
+    }
+
+    current = node;
   }
 }
 
